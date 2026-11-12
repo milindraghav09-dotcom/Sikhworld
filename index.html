@@ -9,7 +9,7 @@ h1,h2{color:#e5b84b;text-align:center}p{color:#b8ae9c;font-size:.84rem;text-alig
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.wp{border-radius:14px;overflow:hidden;border:1px solid #e5b84b55;background:#120f0c;cursor:pointer}
 .art{height:215px;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:space-between;align-items:center;padding:12px 8px}
 .art img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1}
-.shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.45) 0%,transparent 45%,rgba(0,0,0,.75) 100%);z-index:2}
+.shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.4) 0%,transparent 45%,rgba(0,0,0,.75) 100%);z-index:2}
 .sym{position:relative;z-index:3;font-size:1.4rem;color:#ffe08a;font-weight:700;text-shadow:0 2px 10px #000}
 .lbl{position:relative;z-index:3;font-size:.7rem;color:#fff;font-weight:600;text-shadow:0 2px 6px #000;text-align:center}
 .dl{width:100%;padding:9px;background:#e5b84b;border:none;font-weight:700;cursor:pointer;font-size:.8rem;color:#0e0c0a}
@@ -23,35 +23,35 @@ h1,h2{color:#e5b84b;text-align:center}p{color:#b8ae9c;font-size:.84rem;text-alig
 <div id="w" class="card"><h2>GOLDEN TEMPLE & SIKH HD</h2><p id="stxt">Loading real Golden Temple photos...</p><div class="grid" id="g"></div></div>
 <div id="k" class="card hide"><h2>LIVE KIRTAN</h2><p>Sachkhand Sri Harmandir Sahib, Sri Amritsar</p><a href="https://sgpc.net" target="_blank" class="gold">▶ LISTEN LIVE KIRTAN</a><a href="https://sgpc.net" target="_blank" class="btn">📖 DAILY HUKAMNAMA</a></div>
 <div id="q" class="card hide"><h2>DAILY GURBANI</h2><p id="qt" style="color:#f7f1e3;font-size:1rem;line-height:1.6">"ਨਾਨਕ ਨਾਮ ਚੜ੍ਹਦੀ ਕਲਾ ਤੇਰੇ ਭਾਣੇ ਸਰਬੱਤ ਦਾ ਭਲਾ ॥"</p><button class="gold" onclick="window.open('https://wa.me)">💬 SHARE WHATSAPP</button></div>
-<div id="m" class="modal hide" onclick="if(event.target.id=='m')m.classList.add('hide')"><p style="color:#ffe08a">✨ Drag or tilt phone for 3D depth</p><div class="stage" id="st"><div class="c3d" id="c3"><img id="mimg" crossorigin="anonymous"><div class="shade"></div><div id="ms" style="position:relative;z-index:3;font-size:2.4rem;color:#ffe08a;font-weight:700;text-shadow:0 4px 15px #000;transform:translateZ(45px)"></div><div id="mt" style="position:relative;z-index:3;font-weight:700;text-shadow:0 2px 8px #000;transform:translateZ(30px);text-align:center"></div></div></div><div style="display:flex;gap:8px;width:270px"><button class="gold" id="mdl">⬇ Save HD Photo</button><button class="btn" onclick="m.classList.add('hide')">Close</button></div></div>
+<div id="m" class="modal hide" onclick="if(event.target.id=='m')m.classList.add('hide')"><p style="color:#ffe08a">✨ Drag or tilt phone for 3D depth</p><div class="stage" id="st"><div class="c3d" id="c3"><img id="mimg"><div class="shade"></div><div id="ms" style="position:relative;z-index:3;font-size:2.4rem;color:#ffe08a;font-weight:700;text-shadow:0 4px 15px #000;transform:translateZ(45px)"></div><div id="mt" style="position:relative;z-index:3;font-weight:700;text-shadow:0 2px 8px #000;transform:translateZ(30px);text-align:center"></div></div></div><div style="display:flex;gap:8px;width:270px"><button class="gold" id="mdl">⬇ Save HD Photo</button><button class="btn" onclick="m.classList.add('hide')">Close</button></div></div>
 <script>
 let wp=[];
 async function loadPhotos(){
-  const queries=["Harmandir Sahib Amritsar","Golden Temple Amritsar night","Akal Takht Amritsar","Takht Sri Keshgarh Sahib","Gurdwara Bangla Sahib","Hemkund Sahib"];
+  const queries=["Harmandir Sahib","Golden Temple Amritsar","Akal Takht","Keshgarh Sahib","Bangla Sahib","Hemkund Sahib"];
   const raw=[];
   for(const q of queries){
     try{
-      const r=await fetch(`https://wikimedia.org{encodeURIComponent(q)}&gsrnamespace=6&gsrlimit=8&prop=imageinfo&iiprop=url&iiurlwidth=800&format=json&origin=*`);
+      const r=await fetch("https://wikimedia.org"+encodeURIComponent(q)+"&srnamespace=6&srlimit=6&format=json&origin=*");
       const d=await r.json();
-      if(d.query&&d.query.pages){
-        Object.values(d.query.pages).forEach(p=>{
-          if(p.imageinfo&&p.imageinfo[0]){
-            const u=p.imageinfo[0].thumburl||p.imageinfo[0].url;
-            if(!u.endsWith('.svg')&&!raw.some(x=>x.u===u))raw.push({t:q,u});
-          }
-        });
-      }
+      const hits=d&&d.query&&d.query.search?d.query.search:[];
+      hits.forEach(item=>{
+        if(item.title&&/\.(jpg|jpeg|png)$/i.test(item.title)){
+          const fn=encodeURIComponent(item.title.replace(/^File:/,''));
+          const u="https://wikimedia.org"+fn+"?width=800";
+          if(!raw.some(x=>x.u===u))raw.push({t:q,u});
+        }
+      });
     }catch(e){}
   }
   const sy=["","ੴ","☬","ਵਾਹਿਗੁਰੂ","ਚੜ੍ਹਦੀ ਕਲਾ"];
   raw.forEach(p=>sy.forEach(s=>wp.push({id:wp.length+1,t:p.t,u:p.u,s})));
-  stxt.innerText=`Tap any of ${wp.length} real photos for 3D View or Save HD`;
+  stxt.innerText="Tap any of "+wp.length+" real photos for 3D View or Save HD";
   g.innerHTML=wp.map(x=>`<div class="wp" onclick="o3(${x.id})"><div class="art"><img src="${x.u}" loading="lazy" onerror="this.closest('.wp').style.display='none'"><div class="shade"></div><div class="sym">${x.s}</div><div class="lbl">${x.t}</div></div><button class="dl" onclick="event.stopPropagation();dl(${x.id})">⬇ Save HD #${x.id}</button></div>`).join('');
 }
-function o3(id){const x=wp[id-1];mimg.src=x.u;ms.innerText=x.s;mt.innerText=x.t;mdl.onclick=()=>dl(id);m.classList.remove('hide')}
+function o3(id){const x=wp.find(z=>z.id===id);mimg.src=x.u;ms.innerText=x.s;mt.innerText=x.t;mdl.onclick=()=>dl(id);m.classList.remove('hide')}
 st.onpointermove=e=>{const r=st.getBoundingClientRect();c3.style.transform=`rotateY(${((e.clientX-r.left)/r.width-.5)*26}deg) rotateX(${-((e.clientY-r.top)/r.height-.5)*26}deg)`};
 ondeviceorientation=e=>{if(!m.classList.contains('hide')&&e.gamma!=null)c3.style.transform=`rotateY(${e.gamma*.4}deg) rotateX(${-(e.beta-45)*.4}deg)`};
-function dl(id){const x=wp[id-1],img=new Image();img.crossOrigin="anonymous";img.onload=()=>{const v=document.createElement('canvas');v.width=1080;v.height=1920;const c=v.getContext('2d');const sc=Math.max(1080/img.width,1920/img.height);c.drawImage(img,(1080-img.width*sc)/2,(1920-img.height*sc)/2,img.width*sc,img.height*sc);if(x.s){c.fillStyle="#ffe08a";c.font="bold 110px sans-serif";c.textAlign="center";c.shadowColor="#000";c.shadowBlur=20;c.fillText(x.s,540,340)}const a=document.createElement('a');a.download=`GoldenTemple_HD_${id}.jpg`;a.href=v.toDataURL('image/jpeg',.95);a.click()};img.onerror=()=>window.open(x.u,'_blank');img.src=x.u}
+function dl(id){const x=wp.find(z=>z.id===id);window.open(x.u,'_blank')}
 function tab(i,b){['w','k','q'].forEach(x=>document.getElementById(x).classList.add('hide'));document.getElementById(i).classList.remove('hide');document.querySelectorAll('.tabs .btn').forEach(x=>x.classList.remove('on'));b.classList.add('on')}
 loadPhotos();
 </script></body></html>
