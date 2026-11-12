@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sikh World — Live Gurbani & Daily Hukamnama</title>
+  <style>
+    :root {
+      --bg-dark: #12100e;
+      --card-bg: #1e1a16;
+      --gold: #e5b84b;
+      --gold-glow: rgba(229, 184, 75, 0.25);
+      --cream: #f7f1e3;
+      --muted: #b8ae9c;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+    body { background: var(--bg-dark); color: var(--cream); min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 20px 16px 80px; }
+    header { text-align: center; margin-bottom: 24px; }
+    header h1 { color: var(--gold); font-size: 1.6rem; letter-spacing: 1px; }
+    header p { color: var(--muted); font-size: 0.85rem; margin-top: 4px; }
+    .tabs { display: flex; gap: 10px; margin-bottom: 24px; width: 100%; max-width: 440px; }
+    .tab-btn { flex: 1; padding: 12px; border-radius: 12px; border: 1px solid rgba(229, 184, 75, 0.3); background: var(--card-bg); color: var(--cream); font-weight: 600; cursor: pointer; }
+    .tab-btn.active { background: var(--gold); color: #12100e; border-color: var(--gold); }
+    .card { background: var(--card-bg); border: 1px solid rgba(229, 184, 75, 0.25); border-radius: 20px; padding: 28px 20px; width: 100%; max-width: 440px; text-align: center; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4); }
+    .ik-onkar { width: 140px; height: 140px; margin: 0 auto 20px; border-radius: 50%; background: radial-gradient(circle, var(--gold-glow) 0%, transparent 70%); border: 2px solid rgba(229, 184, 75, 0.4); display: flex; align-items: center; justify-content: center; font-size: 4.2rem; color: var(--gold); }
+    h2 { color: var(--gold); font-size: 1.25rem; margin-bottom: 8px; }
+    .subtitle { font-size: 1rem; font-weight: 600; margin-bottom: 12px; }
+    .desc { color: var(--muted); font-size: 0.9rem; line-height: 1.5; margin-bottom: 24px; }
+    .btn-primary { display: block; width: 100%; padding: 14px; background: var(--gold); color: #12100e; text-decoration: none; font-weight: 700; border-radius: 12px; border: none; font-size: 1rem; cursor: pointer; margin-bottom: 12px; }
+    .btn-outline { display: block; width: 100%; padding: 13px; background: transparent; color: var(--gold); text-decoration: none; font-weight: 600; border-radius: 12px; border: 1px solid var(--gold); font-size: 0.95rem; cursor: pointer; }
+    .source { margin-top: 16px; font-size: 0.78rem; color: var(--muted); }
+    .quote-box { background: rgba(0, 0, 0, 0.25); border-left: 3px solid var(--gold); padding: 16px; border-radius: 10px; text-align: left; margin-bottom: 20px; line-height: 1.6; font-size: 0.95rem; }
+    .hidden { display: none; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>ੴ SIKH WORLD</h1>
+    <p>Gurbani Kirtan • Daily Inspiration • Community</p>
+  </header>
+
+  <div class="tabs">
+    <button class="tab-btn active" onclick="showTab('kirtan', this)">Live Kirtan</button>
+    <button class="tab-btn" onclick="showTab('share', this)">Daily Quote & Share</button>
+  </div>
+
+  <div id="kirtan" class="card">
+    <div class="ik-onkar">ੴ</div>
+    <h2>LIVE GURBANI KIRTAN</h2>
+    <p class="subtitle">Sachkhand Sri Harmandir Sahib, Sri Amritsar</p>
+    <p class="desc">Listen to the live spiritual broadcast directly from the Golden Temple via the official SGPC portal.</p>
+    <a href="https://sgpc.net" target="_blank" rel="noopener" class="btn-primary">▶ LISTEN LIVE KIRTAN</a>
+    <a href="https://sgpc.net" target="_blank" rel="noopener" class="btn-outline">📖 READ DAILY HUKAMNAMA</a>
+    <p class="source">Source: Shiromani Gurdwara Parbandhak Committee (SGPC)</p>
+  </div>
+
+  <div id="share" class="card hidden">
+    <h2>DAILY GURBANI VICHAR</h2>
+    <p class="subtitle">Share Blessings with Family & Friends</p>
+    <div class="quote-box" id="quoteText">
+      "ਨਾਨਕ ਨਾਮ ਚੜ੍ਹਦੀ ਕਲਾ ਤੇਰੇ ਭਾਣੇ ਸਰਬੱਤ ਦਾ ਭਲਾ ॥"<br><br>
+      Nanak, with Naam comes Chardi Kala (ever-rising spirits), and by Your Will, may there be peace and prosperity for all humanity.
+    </div>
+    <button class="btn-primary" onclick="shareWhatsApp()">💬 SHARE ON WHATSAPP</button>
+    <button class="btn-outline" onclick="copyQuote()">📋 COPY STATUS TEXT</button>
+  </div>
+
+  <script>
+    function showTab(tabId, btn) {
+      document.getElementById('kirtan').classList.add('hidden');
+      document.getElementById('share').classList.add('hidden');
+      document.getElementById(tabId).classList.remove('hidden');
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    }
+
+    function shareWhatsApp() {
+      const text = document.getElementById('quoteText').innerText + "\n\n— Shared via Sikh World";
+      window.open("https://wa.me" + encodeURIComponent(text), "_blank");
+    }
+
+    function copyQuote() {
+      const text = document.getElementById('quoteText').innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        const copyBtn = document.querySelector('#share .btn-outline');
+        const originalText = copyBtn.innerText;
+        copyBtn.innerText = "✓ COPIED TO CLIPBOARD";
+        setTimeout(() => {
+          copyBtn.innerText = originalText;
+        }, 2000);
+      });
+    }
+  </script>
+</body>
+</html>
