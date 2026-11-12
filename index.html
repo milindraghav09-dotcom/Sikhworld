@@ -1,173 +1,33 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sikh World — Live Gurbani, Wallpapers & Hukamnama</title>
-  <style>
-    :root {
-      --bg-dark: #12100e;
-      --card-bg: #1e1a16;
-      --gold: #e5b84b;
-      --gold-glow: rgba(229, 184, 75, 0.25);
-      --cream: #f7f1e3;
-      --muted: #b8ae9c;
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
-    body { background: var(--bg-dark); color: var(--cream); min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 20px 16px 80px; }
-    header { text-align: center; margin-bottom: 20px; }
-    header h1 { color: var(--gold); font-size: 1.6rem; letter-spacing: 1px; }
-    header p { color: var(--muted); font-size: 0.85rem; margin-top: 4px; }
-    .tabs { display: flex; gap: 8px; margin-bottom: 20px; width: 100%; max-width: 460px; }
-    .tab-btn { flex: 1; padding: 11px 8px; border-radius: 12px; border: 1px solid rgba(229, 184, 75, 0.3); background: var(--card-bg); color: var(--cream); font-weight: 600; font-size: 0.88rem; cursor: pointer; }
-    .tab-btn.active { background: var(--gold); color: #12100e; border-color: var(--gold); }
-    .card { background: var(--card-bg); border: 1px solid rgba(229, 184, 75, 0.25); border-radius: 20px; padding: 24px 18px; width: 100%; max-width: 460px; text-align: center; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4); }
-    .ik-onkar { width: 130px; height: 130px; margin: 0 auto 18px; border-radius: 50%; background: radial-gradient(circle, var(--gold-glow) 0%, transparent 70%); border: 2px solid rgba(229, 184, 75, 0.4); display: flex; align-items: center; justify-content: center; font-size: 4rem; color: var(--gold); }
-    h2 { color: var(--gold); font-size: 1.2rem; margin-bottom: 8px; }
-    .subtitle { font-size: 0.98rem; font-weight: 600; margin-bottom: 12px; }
-    .desc { color: var(--muted); font-size: 0.88rem; line-height: 1.5; margin-bottom: 22px; }
-    .btn-primary { display: block; width: 100%; padding: 13px; background: var(--gold); color: #12100e; text-decoration: none; font-weight: 700; border-radius: 12px; border: none; font-size: 0.95rem; cursor: pointer; margin-bottom: 10px; }
-    .btn-outline { display: block; width: 100%; padding: 12px; background: transparent; color: var(--gold); text-decoration: none; font-weight: 600; border-radius: 12px; border: 1px solid var(--gold); font-size: 0.9rem; cursor: pointer; }
-    .source { margin-top: 14px; font-size: 0.76rem; color: var(--muted); }
-    .quote-box { background: rgba(0, 0, 0, 0.25); border-left: 3px solid var(--gold); padding: 16px; border-radius: 10px; text-align: left; margin-bottom: 20px; line-height: 1.6; font-size: 0.95rem; }
-    .wallpaper-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 14px; }
-    .wp-item { background: #12100e; border-radius: 14px; overflow: hidden; border: 1px solid rgba(229, 184, 75, 0.25); display: flex; flex-direction: column; }
-    .wp-art { height: 190px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 12px; text-align: center; }
-    .wp-1 { background: linear-gradient(160deg, #1b2845 0%, #274060 50%, #e5b84b 140%); }
-    .wp-2 { background: linear-gradient(160deg, #1a1412 0%, #3d2c1e 60%, #c8963e 130%); }
-    .wp-3 { background: linear-gradient(160deg, #0f2027 0%, #203a43 50%, #2c5364 100%); }
-    .wp-4 { background: linear-gradient(160deg, #2b1d0e 0%, #5c3a17 60%, #e5b84b 130%); }
-    .wp-symbol { font-size: 3.2rem; color: var(--gold); margin-bottom: 8px; text-shadow: 0 4px 15px rgba(0,0,0,0.6); }
-    .wp-title { font-size: 0.82rem; font-weight: 600; color: var(--cream); }
-    .wp-dl { background: var(--gold); color: #12100e; border: none; padding: 9px; font-weight: 700; font-size: 0.8rem; cursor: pointer; width: 100%; }
-    .hidden { display: none; }
-  </style>
-</head>
-<body>
-  <header>
-    <h1>ੴ SIKH WORLD</h1>
-    <p>Live Kirtan • HD Wallpapers • Daily Status</p>
-  </header>
 
-  <div class="tabs">
-    <button class="tab-btn active" onclick="showTab('kirtan', this)">Live Kirtan</button>
-    <button class="tab-btn" onclick="showTab('wallpapers', this)">Wallpapers</button>
-    <button class="tab-btn" onclick="showTab('share', this)">Daily Quote</button>
-  </div>
-
-  <!-- LIVE KIRTAN -->
-  <div id="kirtan" class="card">
-    <div class="ik-onkar">ੴ</div>
-    <h2>LIVE GURBANI KIRTAN</h2>
-    <p class="subtitle">Sachkhand Sri Harmandir Sahib, Sri Amritsar</p>
-    <p class="desc">Listen to the live spiritual broadcast directly from the Golden Temple via the official SGPC portal.</p>
-    <a href="https://sgpc.net" target="_blank" rel="noopener" class="btn-primary">▶ LISTEN LIVE KIRTAN</a>
-    <a href="https://sgpc.net" target="_blank" rel="noopener" class="btn-outline">📖 READ DAILY HUKAMNAMA</a>
-    <p class="source">Source: Shiromani Gurdwara Parbandhak Committee (SGPC)</p>
-  </div>
-
-  <!-- WALLPAPERS -->
-  <div id="wallpapers" class="card hidden">
-    <h2>SIKH HD WALLPAPERS</h2>
-    <p class="desc" style="margin-bottom: 10px;">Tap Download to save any mobile wallpaper directly to your phone gallery.</p>
-    <div class="wallpaper-grid">
-      <div class="wp-item">
-        <div class="wp-art wp-1">
-          <div class="wp-symbol">ੴ</div>
-          <div class="wp-title">Ik Onkar Royal Blue</div>
-        </div>
-        <button class="wp-dl" onclick="downloadWallpaper('ੴ', 'Ik Onkar', '#1b2845', '#274060')">⬇ Download</button>
-      </div>
-      <div class="wp-item">
-        <div class="wp-art wp-2">
-          <div class="wp-symbol">☬</div>
-          <div class="wp-title">Khanda Sahib Gold</div>
-        </div>
-        <button class="wp-dl" onclick="downloadWallpaper('☬', 'Waheguru Ji Ka Khalsa', '#1a1412', '#3d2c1e')">⬇ Download</button>
-      </div>
-      <div class="wp-item">
-        <div class="wp-art wp-3">
-          <div class="wp-symbol">ੴ</div>
-          <div class="wp-title">Satnam Waheguru</div>
-        </div>
-        <button class="wp-dl" onclick="downloadWallpaper('ੴ', 'Satnam Waheguru', '#0f2027', '#2c5364')">⬇ Download</button>
-      </div>
-      <div class="wp-item">
-        <div class="wp-art wp-4">
-          <div class="wp-symbol">☬</div>
-          <div class="wp-title">Chardi Kala</div>
-        </div>
-        <button class="wp-dl" onclick="downloadWallpaper('☬', 'Chardi Kala', '#2b1d0e', '#5c3a17')">⬇ Download</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- SHARE / STATUS -->
-  <div id="share" class="card hidden">
-    <h2>DAILY GURBANI VICHAR</h2>
-    <p class="subtitle">Share Blessings with Family & Friends</p>
-    <div class="quote-box" id="quoteText">
-      "ਨਾਨਕ ਨਾਮ ਚੜ੍ਹਦੀ ਕਲਾ ਤੇਰੇ ਭਾਣੇ ਸਰਬੱਤ ਦਾ ਭਲਾ ॥"<br><br>
-      Nanak, with Naam comes Chardi Kala (ever-rising spirits), and by Your Will, may there be peace and prosperity for all humanity.
-    </div>
-    <button class="btn-primary" onclick="shareWhatsApp()">💬 SHARE ON WHATSAPP</button>
-    <button class="btn-outline" onclick="copyQuote()">📋 COPY STATUS TEXT</button>
-  </div>
-
-  <script>
-    function showTab(tabId, btn) {
-      document.getElementById('kirtan').classList.add('hidden');
-      document.getElementById('wallpapers').classList.add('hidden');
-      document.getElementById('share').classList.add('hidden');
-      document.getElementById(tabId).classList.remove('hidden');
-      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-    }
-
-    function downloadWallpaper(symbol, subtitle, color1, color2) {
-      const canvas = document.createElement('canvas');
-      canvas.width = 1080;
-      canvas.height = 1920;
-      const ctx = canvas.getContext('2d');
-
-      const grad = ctx.createLinearGradient(0, 0, 1080, 1920);
-      grad.addColorStop(0, color1);
-      grad.addColorStop(1, color2);
-      ctx.fillStyle = grad;
-      ctx.fillRect(0, 0, 1080, 1920);
-
-      ctx.strokeStyle = 'rgba(229, 184, 75, 0.45)';
-      ctx.lineWidth = 8;
-      ctx.strokeRect(60, 60, 960, 1800);
-
-      ctx.fillStyle = '#e5b84b';
-      ctx.font = 'bold 280px serif';
-      ctx.textAlign = 'center';
-      ctx.fillText(symbol, 540, 920);
-
-      ctx.fillStyle = '#f7f1e3';
-      ctx.font = 'bold 54px sans-serif';
-      ctx.fillText(subtitle, 540, 1080);
-
-      ctx.fillStyle = 'rgba(229, 184, 75, 0.8)';
-      ctx.font = '32px sans-serif';
-      ctx.fillText('SIKH WORLD', 540, 1760);
-
-      const link = document.createElement('a');
-      link.download = subtitle.replace(/\s+/g, '_') + '_Wallpaper.png';
-      link.href = canvas.toDataURL('image/png');
-      link.click();
-    }
-
-    function shareWhatsApp() {
-      const text = document.getElementById('quoteText').innerText + "\n\n— Shared via Sikh World";
-      window.open("https://wa.me" + encodeURIComponent(text), "_blank");
-    }
-
-    function copyQuote() {
-      navigator.clipboard.writeText(document.getElementById('quoteText').innerText);
-      alert("Gurbani quote copied!");
-    }
-  </script>
-</body>
-</html>
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sikh World 3D</title><style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:sans-serif}body{background:#0e0c0a;color:#f7f1e3;padding:16px 12px 60px;display:flex;flex-direction:column;align-items:center}
+h1,h2{color:#e5b84b;text-align:center}p{color:#b8ae9c;font-size:.85rem;text-align:center;margin:6px 0 14px}
+.tabs,.filters{display:flex;gap:6px;width:100%;max-width:460px;margin-bottom:14px;overflow-x:auto}
+.btn{flex:1;padding:10px;border-radius:10px;border:1px solid #e5b84b55;background:#1a1612;color:#f7f1e3;font-weight:700;cursor:pointer;white-space:nowrap}
+.btn.on,.gold{background:#e5b84b;color:#0e0c0a;border:none;text-decoration:none;text-align:center;display:block;padding:12px;border-radius:10px;font-weight:700;margin-bottom:8px;width:100%}
+.card{background:#1a1612;border:1px solid #e5b84b44;border-radius:18px;padding:16px;width:100%;max-width:460px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.wp{border-radius:14px;overflow:hidden;border:1px solid #e5b84b55;cursor:pointer}
+.art{height:185px;display:flex;flex-direction:column;justify-content:space-between;align-items:center;padding-top:14px}
+.sym{font-size:2rem;color:#ffe08a;font-weight:700;text-shadow:0 2px 10px #000}.dl{width:100%;padding:8px;background:#e5b84b;border:none;font-weight:700;cursor:pointer}
+.modal{position:fixed;inset:0;background:#000e;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:99;padding:20px}
+.stage{width:260px;height:440px;perspective:900px;margin-bottom:14px}.c3d{width:100%;height:100%;border-radius:22px;border:2px solid #e5b84b;display:flex;flex-direction:column;justify-content:space-between;align-items:center;padding-top:24px;transform-style:preserve-3d;transition:transform .1s}
+.hide{display:none!important}</style></head><body>
+<h1>ੴ SIKH WORLD 3D</h1><p>120 Golden Temple 3D Wallpapers • Live Kirtan</p>
+<div class="tabs"><button class="btn on" onclick="tab('w',this)">3D Wallpapers (120)</button><button class="btn" onclick="tab('k',this)">Live Kirtan</button><button class="btn" onclick="tab('q',this)">Quote</button></div>
+<div id="w" class="card"><h2>3D GOLDEN TEMPLE GALLERY</h2><p>Tap any card to view in 3D & download HD</p><div class="grid" id="g"></div></div>
+<div id="k" class="card hide"><h2>LIVE KIRTAN</h2><p>Sachkhand Sri Harmandir Sahib</p><a href="https://sgpc.net" target="_blank" class="gold">▶ LISTEN LIVE KIRTAN</a><a href="https://sgpc.net" target="_blank" class="btn">📖 DAILY HUKAMNAMA</a></div>
+<div id="q" class="card hide"><h2>DAILY GURBANI</h2><p id="qt" style="color:#f7f1e3;font-size:1rem;line-height:1.6">"ਨਾਨਕ ਨਾਮ ਚੜ੍ਹਦੀ ਕਲਾ ਤੇਰੇ ਭਾਣੇ ਸਰਬੱਤ ਦਾ ਭਲਾ ॥"</p><button class="gold" onclick="window.open('https://wa.me)">💬 SHARE WHATSAPP</button></div>
+<div id="m" class="modal hide" onclick="if(event.target.id=='m')m.classList.add('hide')"><p style="color:#ffe08a">✨ Drag or tilt phone for 3D</p><div class="stage" id="st"><div class="c3d" id="c3"><div id="mt" style="font-weight:700;transform:translateZ(20px)"></div><div id="ms" style="font-size:4rem;color:#ffe08a;transform:translateZ(50px)"></div><div id="mb" style="width:100%;transform:translateZ(70px)"></div></div></div><div style="display:flex;gap:8px;width:260px"><button class="gold" id="mdl">⬇ Save HD</button><button class="btn" onclick="m.classList.add('hide')">Close</button></div></div>
+<script>
+const th=[["Amrit Vela","#0d1b2a","#1b263b","#d4a238"],["Night Sarovar","#090d16","#162447","#e5b84b"],["Sunrise","#2c1320","#5f2c3e","#f0c966"],["Darbar Blue","#0f2027","#203a43","#e5b84b"],["Saffron","#2b1608","#6b3410","#ffd166"],["Parikrama","#1c1917","#3b332b","#e5b84b"],["Midnight","#0a0a12","#1d1e33","#f5cb5c"],["Emerald","#0b2019","#184234","#e5b84b"],["Crimson","#290d0d","#591c1c","#ffd166"],["Twilight","#1a1423","#3d2c4d","#f0c966"],["Gold Leaf","#1f1708","#4d3914","#ffe08a"],["Akal Takht","#181d27","#2e384d","#e5b84b"],["Sapphire","#0a1128","#001f54","#f5cb5c"],["Sandalwood","#241911","#4a3323","#e5b84b"],["Ardas","#11151c","#212d40","#ffe08a"]];
+const sy=["ੴ","☬","ਵਾਹਿਗੁਰੂ","ਸਤਿਨਾਮ","ਚੜ੍ਹਦੀ ਕਲਾ","ਸਰਬੱਤ ਦਾ ਭਲਾ","ਨਿਰਭਉ ਨਿਰਵੈਰੁ","ਧੰਨ ਗੁਰੂ ਨਾਨਕ"],wp=[];
+th.forEach(t=>sy.forEach(s=>wp.push({id:wp.length+1,t:t[0],s,c1:t[1],c2:t[2],c3:t[3]})));
+const svg=c=>`<svg viewBox="0 0 300 110" style="width:100%;height:75px;display:block"><path d="M122 40 Q150 5 178 40Z" fill="${c}"/><path d="M88 50 Q100 32 112 50Z" fill="${c}"/><path d="M188 50 Q200 32 212 50Z" fill="${c}"/><rect x="85" y="50" width="130" height="32" fill="${c}"/><rect y="82" width="300" height="28" fill="#0009"/><ellipse cx="150" cy="96" rx="60" ry="6" fill="#ffe08a44"/></svg>`;
+g.innerHTML=wp.map(x=>`<div class="wp" onclick="o3(${x.id})"><div class="art" style="background:linear-gradient(165deg,${x.c1},${x.c2} 65%,${x.c3} 145%)"><div class="sym" style="${x.s.length>2?'font-size:1.2rem':''}">${x.s}</div><small>${x.t}</small>${svg(x.c3)}</div><button class="dl" onclick="event.stopPropagation();dl(${x.id})">⬇ HD #${x.id}</button></div>`).join('');
+function o3(id){const x=wp[id-1];c3.style.background=`linear-gradient(165deg,${x.c1},${x.c2} 65%,${x.c3} 145%)`;mt.innerText=x.t;ms.innerText=x.s;ms.style.fontSize=x.s.length>2?'2rem':'4.2rem';mb.innerHTML=svg(x.c3);mdl.onclick=()=>dl(id);m.classList.remove('hide')}
+st.onpointermove=e=>{const r=st.getBoundingClientRect();c3.style.transform=`rotateY(${((e.clientX-r.left)/r.width-.5)*30}deg) rotateX(${-((e.clientY-r.top)/r.height-.5)*30}deg)`};
+ondeviceorientation=e=>{if(!m.classList.contains('hide')&&e.gamma!=null)c3.style.transform=`rotateY(${e.gamma*.4}deg) rotateX(${-(e.beta-45)*.4}deg)`};
+function dl(id){const x=wp[id-1],v=document.createElement('canvas');v.width=1080;v.height=1920;const c=v.getContext('2d'),gr=c.createLinearGradient(0,0,0,1920);gr.addColorStop(0,x.c1);gr.addColorStop(.7,x.c2);gr.addColorStop(1,x.c3);c.fillStyle=gr;c.fillRect(0,0,1080,1920);c.fillStyle='#ffe08a';c.font=x.s.length>2?'bold 110px sans-serif':'bold 250px serif';c.textAlign='center';c.fillText(x.s,540,780);c.fillStyle=x.c3;c.beginPath();c.moveTo(430,1360);c.quadraticCurveTo(540,1200,650,1360);c.fill();c.fillRect(280,1360,520,170);c.fillStyle='#000a';c.fillRect(0,1530,1080,390);const a=document.createElement('a');a.download=`SikhWorld_${id}.png`;a.href=v.toDataURL();a.click()}
+function tab(i,b){['w','k','q'].forEach(x=>document.getElementById(x).classList.add('hide'));document.getElementById(i).classList.remove('hide');document.querySelectorAll('.tabs .btn').forEach(x=>x.classList.remove('on'));b.classList.add('on')}
+</script></body></html>
