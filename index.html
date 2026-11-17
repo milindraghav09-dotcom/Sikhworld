@@ -1,57 +1,831 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Sikh World 3D — Real Golden Temple Wallpapers</title><style>
-*{box-sizing:border-box;margin:0;padding:0;font-family:sans-serif}body{background:#0e0c0a;color:#f7f1e3;padding:16px 12px 60px;display:flex;flex-direction:column;align-items:center}
-h1,h2{color:#e5b84b;text-align:center}p{color:#b8ae9c;font-size:.84rem;text-align:center;margin:6px 0 14px}
-.tabs{display:flex;gap:6px;width:100%;max-width:460px;margin-bottom:14px}
-.btn{flex:1;padding:10px;border-radius:10px;border:1px solid #e5b84b55;background:#1a1612;color:#f7f1e3;font-weight:700;cursor:pointer}
-.btn.on,.gold{background:#e5b84b;color:#0e0c0a;border:none;text-decoration:none;text-align:center;display:block;padding:12px;border-radius:10px;font-weight:700;margin-bottom:8px;width:100%}
-.card{background:#1a1612;border:1px solid #e5b84b44;border-radius:18px;padding:14px;width:100%;max-width:460px}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.wp{border-radius:14px;overflow:hidden;border:1px solid #e5b84b55;background:#120f0c;cursor:pointer}
-.art{height:215px;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:space-between;align-items:center;padding:12px 8px}
-.art img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1}
-.shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.4) 0%,transparent 45%,rgba(0,0,0,.75) 100%);z-index:2}
-.sym{position:relative;z-index:3;font-size:1.4rem;color:#ffe08a;font-weight:700;text-shadow:0 2px 10px #000}
-.lbl{position:relative;z-index:3;font-size:.7rem;color:#fff;font-weight:600;text-shadow:0 2px 6px #000;text-align:center}
-.dl{width:100%;padding:9px;background:#e5b84b;border:none;font-weight:700;cursor:pointer;font-size:.8rem;color:#0e0c0a}
-.modal{position:fixed;inset:0;background:#000e;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:99;padding:20px}
-.stage{width:270px;height:460px;perspective:900px;margin-bottom:14px}
-.c3d{width:100%;height:100%;border-radius:22px;border:2px solid #e5b84b;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:space-between;align-items:center;padding:24px 12px;transform-style:preserve-3d;transition:transform .1s}
-.c3d img{position:absolute;inset:-18px;width:calc(100% + 36px);height:calc(100% + 36px);object-fit:cover;transform:translateZ(-20px)}
-.hide{display:none!important}</style></head><body>
-<h1>ੴ SIKH WORLD 3D</h1><p>Real Golden Temple & Gurdwara HD Wallpapers</p>
-<div class="tabs"><button class="btn on" onclick="tab('w',this)">3D Wallpapers</button><button class="btn" onclick="tab('k',this)">Live Kirtan</button><button class="btn" onclick="tab('q',this)">Quote</button></div>
-<div id="w" class="card"><h2>GOLDEN TEMPLE & SIKH HD</h2><p id="stxt">Loading real Golden Temple photos...</p><div class="grid" id="g"></div></div>
-<div id="k" class="card hide"><h2>LIVE KIRTAN</h2><p>Sachkhand Sri Harmandir Sahib, Sri Amritsar</p><a href="https://sgpc.net" target="_blank" class="gold">▶ LISTEN LIVE KIRTAN</a><a href="https://sgpc.net" target="_blank" class="btn">📖 DAILY HUKAMNAMA</a></div>
-<div id="q" class="card hide"><h2>DAILY GURBANI</h2><p id="qt" style="color:#f7f1e3;font-size:1rem;line-height:1.6">"ਨਾਨਕ ਨਾਮ ਚੜ੍ਹਦੀ ਕਲਾ ਤੇਰੇ ਭਾਣੇ ਸਰਬੱਤ ਦਾ ਭਲਾ ॥"</p><button class="gold" onclick="window.open('https://wa.me)">💬 SHARE WHATSAPP</button></div>
-<div id="m" class="modal hide" onclick="if(event.target.id=='m')m.classList.add('hide')"><p style="color:#ffe08a">✨ Drag or tilt phone for 3D depth</p><div class="stage" id="st"><div class="c3d" id="c3"><img id="mimg"><div class="shade"></div><div id="ms" style="position:relative;z-index:3;font-size:2.4rem;color:#ffe08a;font-weight:700;text-shadow:0 4px 15px #000;transform:translateZ(45px)"></div><div id="mt" style="position:relative;z-index:3;font-weight:700;text-shadow:0 2px 8px #000;transform:translateZ(30px);text-align:center"></div></div></div><div style="display:flex;gap:8px;width:270px"><button class="gold" id="mdl">⬇ Save HD Photo</button><button class="btn" onclick="m.classList.add('hide')">Close</button></div></div>
-<script>
-let wp=[];
-async function loadPhotos(){
-  const queries=["Harmandir Sahib","Golden Temple Amritsar","Akal Takht","Keshgarh Sahib","Bangla Sahib","Hemkund Sahib"];
-  const raw=[];
-  for(const q of queries){
-    try{
-      const r=await fetch("https://wikimedia.org"+encodeURIComponent(q)+"&srnamespace=6&srlimit=6&format=json&origin=*");
-      const d=await r.json();
-      const hits=d&&d.query&&d.query.search?d.query.search:[];
-      hits.forEach(item=>{
-        if(item.title&&/\.(jpg|jpeg|png)$/i.test(item.title)){
-          const fn=encodeURIComponent(item.title.replace(/^File:/,''));
-          const u="https://wikimedia.org"+fn+"?width=800";
-          if(!raw.some(x=>x.u===u))raw.push({t:q,u});
-        }
-      });
-    }catch(e){}
-  }
-  const sy=["","ੴ","☬","ਵਾਹਿਗੁਰੂ","ਚੜ੍ਹਦੀ ਕਲਾ"];
-  raw.forEach(p=>sy.forEach(s=>wp.push({id:wp.length+1,t:p.t,u:p.u,s})));
-  stxt.innerText="Tap any of "+wp.length+" real photos for 3D View or Save HD";
-  g.innerHTML=wp.map(x=>`<div class="wp" onclick="o3(${x.id})"><div class="art"><img src="${x.u}" loading="lazy" onerror="this.closest('.wp').style.display='none'"><div class="shade"></div><div class="sym">${x.s}</div><div class="lbl">${x.t}</div></div><button class="dl" onclick="event.stopPropagation();dl(${x.id})">⬇ Save HD #${x.id}</button></div>`).join('');
-}
-function o3(id){const x=wp.find(z=>z.id===id);mimg.src=x.u;ms.innerText=x.s;mt.innerText=x.t;mdl.onclick=()=>dl(id);m.classList.remove('hide')}
-st.onpointermove=e=>{const r=st.getBoundingClientRect();c3.style.transform=`rotateY(${((e.clientX-r.left)/r.width-.5)*26}deg) rotateX(${-((e.clientY-r.top)/r.height-.5)*26}deg)`};
-ondeviceorientation=e=>{if(!m.classList.contains('hide')&&e.gamma!=null)c3.style.transform=`rotateY(${e.gamma*.4}deg) rotateX(${-(e.beta-45)*.4}deg)`};
-function dl(id){const x=wp.find(z=>z.id===id);window.open(x.u,'_blank')}
-function tab(i,b){['w','k','q'].forEach(x=>document.getElementById(x).classList.add('hide'));document.getElementById(i).classList.remove('hide');document.querySelectorAll('.tabs .btn').forEach(x=>x.classList.remove('on'));b.classList.add('on')}
-loadPhotos();
-</script></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Sikh Status & Live Kirtan</title>
+  <meta name="description" content="Beautiful Sikh Status, HD Wallpapers, Live Kirtan from Darbar Sahib and Nitnem" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --gold: #c9a227;
+      --gold-light: #f5e6b8;
+      --gold-dark: #8b6914;
+      --saffron: #ff9933;
+      --text: #1a1a1a;
+      --muted: #6b7280;
+      --bg: #ffffff;
+      --card: #f8f8f8;
+      --border: #e5e7eb;
+      --whatsapp: #25d366;
+      --radius: 16px;
+      --nav-height: 64px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: 'Poppins', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      padding-bottom: calc(var(--nav-height) + 20px);
+      overflow-x: hidden;
+    }
+
+    /* Header */
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: #fff;
+      padding: 12px 16px 8px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .header-left .icon {
+      font-size: 22px;
+      color: var(--gold);
+    }
+
+    .header-left h1 {
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--gold);
+    }
+
+    .live-btn {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: linear-gradient(135deg, #f5e6b8, #e8d48b);
+      border: 1px solid var(--gold);
+      border-radius: 999px;
+      padding: 6px 14px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--gold-dark);
+      text-decoration: none;
+      box-shadow: 0 2px 8px rgba(201, 162, 39, 0.25);
+    }
+
+    .live-btn .dot {
+      width: 8px;
+      height: 8px;
+      background: #ef4444;
+      border-radius: 50%;
+      animation: pulse 1.4s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.85); }
+    }
+
+    .settings-btn {
+      background: none;
+      border: none;
+      font-size: 22px;
+      color: var(--gold);
+      cursor: pointer;
+      padding: 4px;
+    }
+
+    /* Category chips */
+    .categories {
+      display: flex;
+      gap: 8px;
+      padding: 12px 16px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      background: #fff;
+      position: sticky;
+      top: 57px;
+      z-index: 90;
+    }
+
+    .categories::-webkit-scrollbar { display: none; }
+
+    .chip {
+      flex-shrink: 0;
+      padding: 7px 16px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: #fff;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text);
+      cursor: pointer;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+
+    .chip.active {
+      background: var(--gold-light);
+      border-color: var(--gold);
+      color: var(--gold-dark);
+      font-weight: 600;
+    }
+
+    .chip:hover { border-color: var(--gold); }
+
+    /* Main content areas */
+    .section {
+      display: none;
+      padding: 8px 16px 24px;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .section.active { display: block; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Status Card - 3D Video Style */
+    .status-card {
+      position: relative;
+      border-radius: 24px;
+      overflow: hidden;
+      background: #000;
+      margin-bottom: 28px;
+      max-width: 400px;
+      margin-left: auto;
+      margin-right: auto;
+      box-shadow: 
+        0 25px 50px -12px rgba(0, 0, 0, 0.45),
+        0 0 0 1px rgba(255,255,255,0.08),
+        0 10px 30px rgba(201, 162, 39, 0.15);
+      transform-style: preserve-3d;
+      transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.4s ease;
+      perspective: 1000px;
+    }
+
+    .status-card:hover {
+      transform: translateY(-8px) rotateX(4deg) scale(1.02);
+      box-shadow: 
+        0 35px 60px -15px rgba(0, 0, 0, 0.5),
+        0 0 0 1px rgba(255,255,255,0.12),
+        0 15px 40px rgba(201, 162, 39, 0.25);
+    }
+
+    .status-card img {
+      width: 100%;
+      height: 540px;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.6s ease;
+    }
+
+    .status-card:hover img {
+      transform: scale(1.06);
+    }
+
+    .status-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom, 
+        rgba(0,0,0,0.25) 0%, 
+        transparent 25%, 
+        transparent 55%, 
+        rgba(0,0,0,0.85) 100%
+      );
+      pointer-events: none;
+    }
+
+    /* 3D shine effect */
+    .status-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 60%;
+      height: 100%;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255,255,255,0.12),
+        transparent
+      );
+      transform: skewX(-20deg);
+      transition: left 0.7s ease;
+      z-index: 5;
+      pointer-events: none;
+    }
+
+    .status-card:hover::before {
+      left: 120%;
+    }
+
+    .edit-btn {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      background: rgba(0,0,0,0.55);
+      color: #fff;
+      border: none;
+      border-radius: 999px;
+      padding: 6px 14px;
+      font-size: 13px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      backdrop-filter: blur(4px);
+    }
+
+    .add-photo {
+      position: absolute;
+      bottom: 110px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: #fff;
+      border: 3px solid #3b82f6;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 600;
+      color: #1e40af;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+      text-align: center;
+      line-height: 1.2;
+    }
+
+    .add-photo .icon {
+      font-size: 22px;
+      margin-bottom: 2px;
+    }
+
+    .name-tag {
+      position: absolute;
+      bottom: 78px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #1e3a8a;
+      color: #fff;
+      padding: 5px 18px;
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
+    .action-bar {
+      position: absolute;
+      bottom: 16px;
+      left: 16px;
+      right: 16px;
+      display: flex;
+      gap: 10px;
+    }
+
+    .action-btn {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 13px;
+      border-radius: 14px;
+      border: none;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.2s, background 0.2s;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    .action-btn:active { transform: scale(0.96); }
+
+    .btn-save {
+      background: rgba(20,20,20,0.75);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .btn-share {
+      background: rgba(20,20,20,0.75);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .btn-share:hover {
+      background: rgba(37, 211, 102, 0.25);
+      border-color: var(--whatsapp);
+    }
+
+    .btn-share .wa {
+      color: var(--whatsapp);
+      font-size: 18px;
+    }
+
+    /* Wallpapers Grid - 3D Video Style */
+    .wallpaper-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      padding: 4px;
+    }
+
+    @media (min-width: 640px) {
+      .wallpaper-grid { grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    }
+
+    .wall-card {
+      position: relative;
+      border-radius: 18px;
+      overflow: hidden;
+      aspect-ratio: 9/16;
+      background: #111;
+      cursor: pointer;
+      box-shadow: 
+        0 12px 28px rgba(0,0,0,0.25),
+        0 0 0 1px rgba(255,255,255,0.06);
+      transform-style: preserve-3d;
+      transition: transform 0.35s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.35s ease;
+    }
+
+    .wall-card:hover {
+      transform: translateY(-10px) scale(1.03) rotateY(3deg);
+      box-shadow: 
+        0 25px 45px rgba(0,0,0,0.35),
+        0 0 0 1px rgba(201, 162, 39, 0.3),
+        0 0 30px rgba(201, 162, 39, 0.15);
+      z-index: 2;
+    }
+
+    .wall-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .wall-card:hover img {
+      transform: scale(1.1);
+    }
+
+    .wall-card .dl {
+      position: absolute;
+      bottom: 12px;
+      right: 12px;
+      background: rgba(0,0,0,0.7);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      padding: 8px 14px;
+      font-size: 12px;
+      font-weight: 600;
+      backdrop-filter: blur(8px);
+      transition: background 0.2s, transform 0.2s;
+      z-index: 3;
+    }
+
+    .wall-card:hover .dl {
+      background: var(--gold);
+      color: #1a1a1a;
+      transform: scale(1.05);
+    }
+
+    /* Video-style progress bar at top of wallpaper cards */
+    .wall-card::after {
+      content: '';
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      right: 10px;
+      height: 3px;
+      background: rgba(255,255,255,0.25);
+      border-radius: 99px;
+      overflow: hidden;
+      z-index: 4;
+    }
+
+    .wall-card:hover::after {
+      background: linear-gradient(90deg, var(--gold), #fff);
+    }
+
+    /* Live Kirtan */
+    .kirtan-hero {
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+      border-radius: 20px;
+      padding: 28px 20px;
+      text-align: center;
+      color: #fff;
+      margin-bottom: 20px;
+    }
+
+    .kirtan-hero h2 {
+      font-size: 22px;
+      margin-bottom: 8px;
+    }
+
+    .kirtan-hero p {
+      font-size: 14px;
+      opacity: 0.85;
+      margin-bottom: 20px;
+    }
+
+    .kirtan-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--gold);
+      color: #1a1a1a;
+      border: none;
+      border-radius: 999px;
+      padding: 12px 24px;
+      font-size: 15px;
+      font-weight: 600;
+      text-decoration: none;
+      box-shadow: 0 4px 14px rgba(201,162,39,0.4);
+    }
+
+    .kirtan-links {
+      display: grid;
+      gap: 12px;
+    }
+
+    .kirtan-link {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 16px;
+      background: var(--card);
+      border-radius: 14px;
+      text-decoration: none;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .kirtan-link .icon-box {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: var(--gold-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+    }
+
+    .kirtan-link h3 {
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    .kirtan-link p {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    /* Nitnem */
+    .nitnem-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .nitnem-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 16px;
+      background: var(--card);
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      cursor: pointer;
+    }
+
+    .nitnem-item .num {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--gold-light);
+      color: var(--gold-dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    .nitnem-item h3 {
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    .nitnem-item p {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    /* Settings */
+    .settings-group {
+      background: var(--card);
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      margin-bottom: 16px;
+      overflow: hidden;
+    }
+
+    .settings-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 16px;
+      cursor: pointer;
+      border-bottom: 1px solid var(--border);
+      transition: background 0.15s;
+    }
+
+    .settings-item:last-child { border-bottom: none; }
+    .settings-item:active { background: #f0f0f0; }
+
+    .settings-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .settings-icon {
+      font-size: 22px;
+      width: 36px;
+      text-align: center;
+    }
+
+    .settings-item h3 {
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    .settings-item p {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .settings-item .arrow {
+      font-size: 22px;
+      color: #c0c0c0;
+      font-weight: 300;
+    }
+
+    .toggle {
+      width: 48px;
+      height: 28px;
+      background: #ddd;
+      border-radius: 999px;
+      position: relative;
+      transition: background 0.25s;
+    }
+
+    .toggle::after {
+      content: '';
+      position: absolute;
+      width: 22px;
+      height: 22px;
+      background: #fff;
+      border-radius: 50%;
+      top: 3px;
+      left: 3px;
+      transition: transform 0.25s;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+
+    .toggle.on {
+      background: var(--gold);
+    }
+
+    .toggle.on::after {
+      transform: translateX(20px);
+    }
+
+    /* Dark mode */
+    body.dark {
+      --bg: #121212;
+      --card: #1e1e1e;
+      --text: #f0f0f0;
+      --muted: #a0a0a0;
+      --border: #333;
+    }
+
+    body.dark .header,
+    body.dark .categories,
+    body.dark .bottom-nav {
+      background: #1a1a1a;
+      border-color: #333;
+    }
+
+    body.dark .chip {
+      background: #1e1e1e;
+      border-color: #444;
+      color: #e0e0e0;
+    }
+
+    body.dark .chip.active {
+      background: var(--gold-light);
+      color: var(--gold-dark);
+    }
+
+    body.dark .settings-item:active {
+      background: #2a2a2a;
+    }
+
+    /* Bottom Navigation */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: var(--nav-height);
+      background: #fff;
+      border-top: 1px solid var(--border);
+      display: flex;
+      z-index: 100;
+      box-shadow: 0 -4px 20px rgba(0,0,0,0.06);
+    }
+
+    .nav-item {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 3px;
+      background: none;
+      border: none;
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--muted);
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+
+    .nav-item.active {
+      color: var(--gold);
+    }
+
+    .nav-item .nav-icon {
+      font-size: 22px;
+      line-height: 1;
+    }
+
+    /* Toast */
+    .toast {
+      position: fixed;
+      bottom: 90px;
+      left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: #1a1a1a;
+      color: #fff;
+      padding: 12px 20px;
+      border-radius: 999px;
+      font-size: 14px;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.3s;
+      z-index: 150;
+      white-space: nowrap;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* Section titles */
+    .section-title {
+      font-size: 16px;
+      font-weight: 600;
+      margin: 8px 0 14px;
+      color: var(--text);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="header-left">
+      <span class="icon">🖼️</span>
+      <h1 id="pageTitle">Status</h1>
+    </div>
+    <div style="display:flex;align-items:center;gap:10px;">
+      <a href="https://www.youtube.com/@SGPCSriAmritsar/streams" target="_blank" class="live-btn" title="Official Live Kirtan">
+        <span class="dot"></span>
+        LIVE KIRTAN
+      </a>
+      <button class="settings-btn" onclick="openSettings()" title="Settings">⚙️</button>
+    </div>
+  </header>
+
+  <!-- Categories (only for Status) -->
+  <div class="categories" id="categoryBar">
+    <button class="chip active" data-cat="all">All</button>
+    <button class="chip" data-cat="new">New</button>
+    <button class="chip" data-cat="hukamnama">Hukamnama</button>
+    <button class="chip" data-cat="ai">✨ AI Status</button>
+    <button class="chip" data-cat="harmandir">Shri Harmandir Sahib</button>
+    <button class="chip" data-cat="waheguru">Waheguru Ji</button>
+    <button class="chip" data-cat="ardas">Ardas</button>
+    <button class="chip" data-cat="gurbani">Gurbani</button>
+    <button class="chip" data-cat="purane">Purane Gaane</button>
+    <button class="chip" data-cat="suvichar">Suvichar</button>
+    <button class="chip" data-cat="dildigal">Dil Di Gal</button>
+  </div>
+
+  <!-- ========== STATUS SECTION ========== -->
+  <section class="section active" id="status">
+    <div id="statusContainer"></div>
+    <div style="text-align:center;padding:20px;">
+      <button onclick="loadMoreStatus()" id="loadMoreStatusBtn" style="background:var(--gold-light);border:1px solid var(--gold);color:var(--gold-dark);padding:10px 24px;border-radius:999px;font-weight:600;cursor:pointer;">
+        Load More Status
+      </button>
+    </div>
+  </section>
+
+  <!-- ========== WALLPAPERS SECTION ========== -->
+  <section class="section" id="wallpapers">
+    <h2 class="section-title">HD Sikh Wallpapers <span id="wallCount" style="font-weight:400;color:var(--muted);font-size:14px;"></span></h2>
+    <div class="wallpaper-grid" id="wallpaperContainer"></div>
+    <div style="text-align:center;padding:20px;">
+      <button onclick="loadMoreWalls()" id="loadMoreWallBtn" style="background:var(--gold-light);border:1px solid var(--gold);color:var(--gold-dark);padding:10px 24px;border-radius:999px;font-weight:600;cursor:pointer;">
+        Load More Wallpapers
+      </button>
+    </div>
+  </section>
+
+  <!-- ========== LIVE KIRTAN SECTION ========== -->
+  <section class="section" id="kirtan">
+    <div class="kirtan-hero">
+      <h2>🔴 Live Gurbani Kirtan</h2>
+      <p>Listen to live kirtan from Sachkhand Sri Harmandir Sahib, Amritsar</p>
+      <a href="https://www.youtube.com/@SGPCSriAmritsar/streams" target="_blank" class="kirtan-btn">
+        ▶ Watch Live on YouTube
+      </a>
+    </div>
+
+    <div class="kirtan-links">
+      <a href="https://www.youtube.com/@SGPCSriAmritsar/streams" target="_blank" class="kirtan-link">
+        <div class="icon-box">📺</div>
+        <div>
+          <h3>SGPC Official Live</h3>
+          <p>Darbar Sahib • Harmandir Sahib</p>
+        </div>
+      </a>
+      <a href="https://play.sikhnet.com/radio" target="_blank" class="kirtan-link">
+        <div class="icon-box">📻</div>
+        <div>
+          <h3>SikhNet Radio</h3>
+          <p>Multiple live channels & archives</p>
+        </div>
+      </a>
+      <a href="https://www.youtube.com/@SGPCSriAmritsar" target="_blank" class="kirtan-link">
+        <div class="icon-box">🙏</div>
+        <div>
+          <h3>SGPC Channel</h3>
+          <p>All live streams & recordings</p>
+        </div>
+      </a>
+      <a href="https://sgpc.net" target="_blank" class="kirtan-link">
+        <div class="icon-box">🌐</div>
+        <div>
+          <h3>SGPC Official Website</h3>
+          <p>sgpc.net</p>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- ========== NITNEM SECTION ========== -->
+  <section class="section" id="nitnem">
+    <h2 class="section-title">Daily Nitnem</h2>
+    <div class="nitnem-list">
+      <div class="nitnem-item" onclick="showToast('Japji Sahib (demo)')">
+        <div class="num">1</div
